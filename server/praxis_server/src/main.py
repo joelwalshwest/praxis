@@ -34,4 +34,4 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return "praxis_server v0"
+    return "praxis_server v0.1"
