@@ -1,0 +1,8 @@
+uvicorn
+fastapi
+debugpy
+httpx
+requests
+sqlmodel
+pymysql
+cloud-sql-python-connector[pymysql]
