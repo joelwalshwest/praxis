@@ -6,6 +6,7 @@ steps:
 
   # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
+    dir: 'server/praxis_server'
     args: [
       'build',
       '--target', 'slim',
@@ -17,6 +18,7 @@ steps:
 
   # Step 2: Push the Docker image to Docker Hub
   - name: 'gcr.io/cloud-builders/docker'
+    dir: 'server/praxis_server'
     args: [
       'push',
       'docker.io/joelwalshwest/prod-praxis-server:$COMMIT_SHA'
@@ -24,6 +26,7 @@ steps:
 
   # Step 3: Deploy to Google Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
+    dir: 'server/praxis_server'
     args: [
       'run',
       'deploy',
