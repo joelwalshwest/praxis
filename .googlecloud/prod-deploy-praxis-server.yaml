@@ -1,4 +1,3 @@
-# TODO: Update this file
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
@@ -10,7 +9,7 @@ steps:
     args: [
       'build',
       '--target', 'slim',
-      '-t', 'joelwalshwest/fastapi-scaffolding:$COMMIT_SHA',
+      '-t', 'joelwalshwest/prod-praxis-server:$COMMIT_SHA',
       '.',
       '--platform=linux/amd64',
       '--no-cache'
@@ -20,7 +19,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
-      'docker.io/joelwalshwest/fastapi-scaffolding:$COMMIT_SHA'
+      'docker.io/joelwalshwest/prod-praxis-server:$COMMIT_SHA'
     ]
 
   # Step 3: Deploy to Google Cloud Run
@@ -28,8 +27,8 @@ steps:
     args: [
       'run',
       'deploy',
-      'fastapi-scaffolding',
-      '--image', 'docker.io/joelwalshwest/fastapi-scaffolding:$COMMIT_SHA',
+      'prod-praxis-server',
+      '--image', 'docker.io/joelwalshwest/prod-praxis-server:$COMMIT_SHA',
       '--platform', 'managed',
       '--allow-unauthenticated',
       '--region', 'us-east1'
@@ -39,7 +38,7 @@ options:
 
 availableSecrets:
    secretManager:
-   - versionName: projects/fastapi-scaffolding/secrets/DOCKER_PASSWORD/versions/latest
+   - versionName: projects/mlstudio-440903/secrets/DOCKER_PASSWORD/versions/latest
      env: 'PASSWORD'
-   - versionName: projects/fastapi-scaffolding/secrets/DOCKER_USERNAME/versions/latest
+   - versionName: projects/mlstudio-440903/secrets/DOCKER_USERNAME/versions/latest
      env: 'USERNAME'
